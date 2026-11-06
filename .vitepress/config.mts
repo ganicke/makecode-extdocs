@@ -2,6 +2,8 @@ import { defineConfig } from 'vitepress'
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
+  base: '/makecode-extdocs/', 
+
   title: "MakeCode Guides",
   description: "MakeCode guides, how-to's, activities and projects.",
   themeConfig: {
