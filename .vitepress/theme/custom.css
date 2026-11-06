@@ -1,0 +1,21 @@
+/* .vitepress/theme/custom.css */
+
+/* Target the native VitePress Hero HTML structure directly to force the style */
+:deep(.VPHero .name),
+.VPHero .name {
+  font-size: 5rem !important;
+  line-height: 1.1;
+}
+
+:deep(.VPHero .text),
+.VPHero .text {
+  font-size: 2rem !important;
+  line-height: 1.1;
+}
+
+/* Optional: Shrink them cleanly on mobile layouts so they don't look blocky */
+@media (max-width: 640px) {
+  .VPHero .name, .VPHero .text {
+    font-size: 2.5rem !important;
+  }
+}
