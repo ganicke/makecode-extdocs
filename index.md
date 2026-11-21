@@ -18,9 +18,9 @@ hero:
       link: /arcade
 
 features:
-  - title: Coded Name Tag
+  - title: Encoded Name Tag
     details: Encode your name or initials on the 5x5 display and decode it using a webcam.
-    link: /microbit/coded-name-tag
+    link: /microbit/encoded-name-tag
   - title: micro:bit Data Collection Guide
     details: Coming soon...
   - title: Device I/O Guide

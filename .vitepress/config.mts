@@ -15,7 +15,7 @@ export default defineConfig({
           link: '/microbit/',
           collapsed: false,
           items: [
-            { text: 'Coded Name Tag', link: '/microbit/coded-name-tag' }
+            { text: 'Encoded Name Tag', link: '/microbit/encoded-name-tag' }
           ]
         }
       ],
@@ -30,9 +30,12 @@ export default defineConfig({
         }
       ]
     },
-
+    editLink: {
+      pattern: 'https://github.com/ganicke/makecode-extdocs/edit/main/:path',
+      text: 'Edit this page on GitHub'
+    },
     socialLinks: [
-      { icon: 'github', link: 'https://github.com/vuejs/vitepress' }
+      { icon: 'github', link: 'https://ganicke.github.io/makecode-extdocs' }
     ]
   }
 })
