@@ -8,7 +8,7 @@ import Base26Encoder from './components/Base26Encoder.vue'
 import CharSetRange from './components/CharSetRange.vue'
 </script>
 
-# QR-bit: Encode Name Tag
+# QR-bit: Encoded Name Tag
 
 The display on the micro:bit is a two-dimensional matrix of LEDs 🟧 arranged in 5 columns by 5 rows (5x5 matrix 𝄜). A QR code is a type of barcode that has information encoded into dots in a two-dimensional matrix. We can make QR the uses the micro:bit's display with its matrix of LEDs. Even though we can't make a code as complex as a standard QR code, we can take at least 5 letters of the alphabet and create an encoded pattern for them and display it using the LEDs as the dots in the coded matrix.
 
@@ -176,13 +176,16 @@ basic.showNumber(accumValue)
 
 ### Convert to bits
 
-Having a total value for Base26 message letters is a major step. To show a single image representation of this value on the display requires that we have some way to represent binary number for this value. This is because the LEDs on the display will show the individual bit values for the that number, 🟧 = 1 and ⬜ = 0.
+Having a total value for the Base26 message letters is a big step. To show a single image representation of this value on the display requires that we have some way to represent binary number for this value. This is because the LEDs on the display will show the individual bit values for the that number, 🟧 = 1 and ⬜ = 0.
 
-A simple way to have a binary representation of the accumulated value for our message digits is to use a Boolean array. The array will map the binary digits (bits) of the message value where each element is a bit to tell one of the LEDs to turn on or off. Even though the display is a matrix with rows and columns, we can just use a one-dimensional array and divide it into 5-bit segments for each row. 
+A simple way to have a binary representation of the accumulated value for our message digits is to use a `boolean` array. The array will map the binary digits (bits) of the message value where each element is a bit to tell one of the LEDs to turn on or off. Even though the display is a matrix with rows and columns, we can just use a one-dimensional array and just remember that every set of 5 bits is for the next row.
+
+Let's create a 25 bit, binary array called `bitArray[]`:
 
 <MakeCodeBlocks
   target="microbit"
-  scale="1.0"
+  hash="354e854e37800d3e"
+  scale="0.70"
   maxHeight="350"
   type="png"
 >
@@ -196,26 +199,62 @@ for (let index = 0; index < 25; index++) {
 
 </MakeCodeBlocks>
 
-To make our bit array, we break down the Base26 number multiple times by one-half until we've filled all of the bits in the array. Each time, if there's a remainder after dividing the number by 2 we set the current bit position to `true`.
+To encode our bit array, we break down the Base26 number multiple times by one-half and fill the bits in the array  until the Base26 number is zero. This is because each place value is 2 times the more than the one before it. Each we divide by `2` and if there's a remainder after dividing the number by 2 we set the current bit position to `true`.
+
+To illustrate the process, we can manually build a table values for the `BUZZY` message and its Base26 encode value of `826070`. Each time we divide by `2`, the remainder value is either a `1` or a `0`. These remainder (**Rem**) values are the bits of the binary representation of `BUZZY` that will go into `bitArray[]`. Here are the results:
+
+<SideBySide gap="32px" borderless>
+
+|Digit|Base26|Half Value|Rem|
+|-|-|-|-|
+| 0|826070 | 413035| 0|
+| 1|413035 | 206517| 1|
+| 2|206517 | 103258| 1|
+| 3|103258 |  51629| 0|
+| 4| 51629 |  25814| 1|
+| 5| 25814 |  12907| 0|
+| 6| 12907 |   6453| 1|
+| 7|  6453 |   3226| 1|
+| 8|  3226 |   1613| 0|
+| 9|  1613 |    806| 1|
+|10|   806 |    403| 0|
+
+|Digit|Base26|Half Value|Rem|
+|-|-|-|-|
+|11|   403 |    201| 1|
+|12|   201 |    100| 1|
+|13|   100 |     50| 0|
+|14|    50 |     25| 0|
+|15|    25 |     12| 1|
+|16|    12 |      6| 0|
+|17|     6 |      3| 0|
+|18|     3 |      1| 1|
+|19|     1 |      0| 1|
+|20|     0 |      0| 0|
+|21|     0 |      0| 0|
+
+</SideBySide>
 
 <MakeCodeBlocks
   target="microbit"
+  hash="40c3bd8dfdfeb34f"
   scale="1.0"
   maxHeight="350"
   type="png"
 >
 
 ```typescript
-let bitArray: Boolean[] = [];
+let bitArray: boolean[] = []
 let halfValue = 0
 let accumValue = 0
+let charCode = 0
 let message = "BUZZY"
-for (let j = 0; j <= message.length-1; j++) {
+for (let j = 0; j <= message.length - 1; j++) {
     charCode = message.charCodeAt(j) - 65
     accumValue = accumValue * 26 + charCode
 }
 for (let index = 0; index < 25; index++) {
-        bitArray.push(false)
+    bitArray.push(false)
 }
 for (let bitIndex = 0; bitIndex <= 24; bitIndex++) {
     halfValue = Math.idiv(accumValue, 2)

@@ -20,7 +20,7 @@ hero:
 features:
   - title: Encoded Name Tag
     details: Encode your name or initials on the 5x5 display and decode it using a webcam.
-    link: /docs/microbit/encoded-name-tag
+    link: /docs/microbit/qrbit-name-tag
   - title: micro:bit Data Collection Guide
     details: Coming soon...
   - title: Device I/O Guide

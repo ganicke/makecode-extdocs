@@ -15,7 +15,7 @@ export default defineConfig({
           link: '/docs/microbit/',
           collapsed: false,
           items: [
-            { text: 'Encoded Name Tag', link: '/docs/microbit/encoded-name-tag' }
+            { text: 'QR-bit: Encoded Name Tag', link: '/docs/microbit/qrbit-name-tag' }
           ]
         }
       ],
