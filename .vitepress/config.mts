@@ -9,23 +9,23 @@ export default defineConfig({
   themeConfig: {
     // Multi-sidebar maps exact directory strings to an array of nav groups
     sidebar: {
-      '/microbit/': [
+      '/docs/microbit/': [
         {
           text: 'micro:bit',
-          link: '/microbit/',
+          link: '/docs/microbit/',
           collapsed: false,
           items: [
-            { text: 'Encoded Name Tag', link: '/microbit/encoded-name-tag' }
+            { text: 'Encoded Name Tag', link: '/docs/microbit/encoded-name-tag' }
           ]
         }
       ],
-      '/arcade/': [
+      '/docs/arcade/': [
         {
           text: 'arcade',
-          link: '/arcade/',
+          link: '/docs/arcade/',
           collapsed: false,
           items: [
-            { text: 'Arcade Dummy Guide', link: '/arcade/dummy' }
+            { text: 'Arcade Dummy Guide', link: '/docs/arcade/dummy' }
           ]
         }
       ]

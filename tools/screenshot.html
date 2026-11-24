@@ -1,0 +1,72 @@
+<html><head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+    <link rel="stylesheet" href="./semantic.css" type="text/css">
+    <link data-name="vs/editor/editor.main" rel="stylesheet" href="https://microsoft.github.io/monaco-editor/node_modules/monaco-editor/min/vs/editor/editor.main.css">
+    <link rel="stylesheet" href="https://makecode.com/static/shared/iframeeditor.css">
+    <link rel="stylesheet" href="https://makecode.com/static/screenshot-tool/screenshot.css">
+</head>
+
+<body>
+    
+    <nav class="ui menu inverted fixed borderless">
+        <div class="ui item">
+            MakeCode Block Screenshot Tool
+        </div>
+    </nav>
+
+    <div class="content">
+        <div class="input-row">
+            <div id="endpoint-container" class="ui labeled input">
+                <span class="ui label">Editor</span>
+                <select id="endpoint-select" class="ui dropdown"></select>
+                <button class="ui primary button input large" id="run-button">
+                    <i class="play icon"></i>
+                    Run
+                </button>
+            </div>
+        </div>
+        <div class="editor-row">
+            <div class="monaco-col">
+                <div id="monaco-editor">
+                    <div id="container" style="border:1px solid grey"></div>
+                </div>
+                <div id="render-result">
+
+                </div>
+            </div>
+            <div id="makecode-editor" style="border:1px solid grey"></div>
+        </div>
+    </div>
+
+
+    <script src="https://microsoft.github.io/monaco-editor/node_modules/monaco-editor/min/vs/loader.js"></script>
+    <script>
+        const vsBase = 'https://microsoft.github.io/monaco-editor/node_modules/monaco-editor/min/vs';
+
+        window.MonacoEnvironment = {
+            getWorkerUrl: function () {
+                return `data:text/javascript;charset=utf-8,${encodeURIComponent(`
+                    self.MonacoEnvironment = { baseUrl: '${vsBase}/' };
+                    importScripts('${vsBase}/base/worker/workerMain.js');
+                `)}`;
+            //getWorkerUrl: function () {
+            //    return `data:text/javascript;charset=utf-8,${encodeURIComponent(`
+            //        self.MonacoEnvironment = { baseUrl: '${vsBase.replace(/\/vs$/, '/')}' };
+            //        importScripts('${vsBase}/base/worker/workerMain.js');
+            //    `)}`;
+            }
+        };
+
+        require.config({
+            paths: { vs: vsBase }
+        });
+
+        require(['vs/editor/editor.main'], function () {
+            const script = document.createElement('script');
+            script.src = './screenshot.js';
+            document.body.appendChild(script);
+        });
+    </script>
+
+</body></html>
