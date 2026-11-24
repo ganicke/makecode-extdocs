@@ -9,4 +9,4 @@ Welcome to the micro:bit learning hub. Here you will find step-by-step guides, a
 
 ### Featured Activities
 
-*   **[Dummy](/arcade/dummy)**: Learn how to code a 2d game in MakeCode Arcade.
+*   **[Dummy](/docs/arcade/dummy)**: Learn how to code a 2d game in MakeCode Arcade.
